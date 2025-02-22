@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/Emeka007/my-application#readme",
   "dependencies": {
+    "axios": "^1.7.9",
     "body-parser": "^1.20.3",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "sqlite3": "^5.1.7"
