@@ -12,8 +12,12 @@ function App() {
   }, []);
 
   const fetchItems = async () => {
-    const res = await axios.get("http://localhost:3001/items");
-    setData(res.data);
+    try {
+      const res = await axios.get("http://localhost:3001/items");
+      setData(res.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const addItem = async () => {
@@ -22,19 +26,30 @@ function App() {
       return;
     }
 
-    await axios.post("http://localhost:3001/add", { name, description });
-    setName("");
-    setDescription("");
-    fetchItems();
+    try {
+      await axios.post("http://localhost:3001/add", { name, description });
+      setName("");
+      setDescription("");
+      fetchItems();
+    } catch (error) {
+      console.error("Error adding item:", error);
+    }
   };
 
   const deleteItem = async (id) => {
-    await axios.delete(`http://localhost:3001/delete/${id}`);
-    fetchItems();
+    try {
+      await axios.delete(`http://localhost:3001/delete/${id}`);
+      fetchItems();
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
   };
 
   return (
     <div className="container d-flex flex-column align-items-center mt-5">
+      {/* New Header for Testing */}
+      <h1 className="text-success">Hello, welcome to the CRUD Application!</h1>
+
       {/* Card Section */}
       <div className="card p-4 shadow-sm text-center" style={{ maxWidth: "450px", width: "100%" }}>
         <h2 className="text-primary">CRUD Application</h2>
@@ -55,17 +70,16 @@ function App() {
           onChange={(e) => setDescription(e.target.value)} 
         />
 
-        {/* Centered Button with Fixed Width */}
-<div className="d-flex justify-content-center">
-  <button 
-    className="btn btn-primary mt-2"
-    style={{ width: "120px", maxWidth: "100%" }} 
-    onClick={addItem}
-  >
-    Add Item
-  </button>
-</div>
-
+        {/* Add Item Button */}
+        <div className="d-flex justify-content-center">
+          <button 
+            className="btn btn-primary mt-2"
+            style={{ width: "120px", maxWidth: "100%" }} 
+            onClick={addItem}
+          >
+            Add Item
+          </button>
+        </div>
       </div>
 
       {/* Items List Section */}

@@ -1,0 +1,9 @@
+config:
+  target: "http://localhost:3001"  # Ensure your backend is running
+  phases:
+    - duration: 60   # Run the test for 1 minute
+      arrivalRate: 10  # 10 requests per second
+scenarios:
+  - flow:
+      - get:
+          url: "/items"  # Load test the items endpoint

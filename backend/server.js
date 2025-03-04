@@ -24,6 +24,11 @@ const db = new sqlite3.Database("./database.sqlite", (err) => {
     }
 });
 
+// ✅ Default route to avoid "Cannot GET /"
+app.get("/", (req, res) => {
+    res.send("Backend API is running!");
+});
+
 // CRUD Operations
 
 // Create
